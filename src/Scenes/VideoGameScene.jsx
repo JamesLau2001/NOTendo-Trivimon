@@ -1,15 +1,18 @@
-import { getAllVideoGameQuestions } from "../data/videoGamesQuestions"; // Ensure you import this correctly
+import { getAllVideoGameQuestions } from "../data/videoGamesQuestions";
 
-const VideoGameScene = (setCurrentScene, setVideoGameCompleted,setEnteredVideoGame) => {
+const VideoGameScene = (
+  setCurrentScene,
+  setVideoGameCompleted,
+  setEnteredVideoGame
+) => {
   return {
     preload: function () {
-      // Preload assets like background image
-      this.load.image("background", "../../public/triviaScenes/anotherVG.png"); // Change the path accordingly
+      this.load.image("background", "../../public/triviaScenes/anotherVG.png");
       this.load.image("displayBox", "../../public/triviaScenes/displayBox.png");
       this.load.audio("correct", "../../music/correct.mp3");
-      this.load.audio("wrong","../../music/wrong.mp3")
-      this.load.audio("win","../../music/win.mp3")
-      this.load.audio("fail","../../music/fail.mp3")
+      this.load.audio("wrong", "../../music/wrong.mp3");
+      this.load.audio("win", "../../music/win.mp3");
+      this.load.audio("fail", "../../music/fail.mp3");
       this.load.image("HP", "../triviaScenes/GymHealth.png");
       this.load.image("HP1", "../triviaScenes/heartbar1.png");
       this.load.image("HP2", "../triviaScenes/heartbar.png");
@@ -21,8 +24,7 @@ const VideoGameScene = (setCurrentScene, setVideoGameCompleted,setEnteredVideoGa
     },
 
     create: function () {
-      // Initialize variables
-      setEnteredVideoGame(true)
+      setEnteredVideoGame(true);
       this.add.image(400, 300, "background").setScale(1.5).setOrigin(0.5, 0.5);
       this.add.image(445, 230, "displayBox").setScale(0.57).setOrigin(0.5, 0.5);
       this.add.image(150, 40, "HP").setScale(0.3).setOrigin(0.5, 0.5);
@@ -33,8 +35,8 @@ const VideoGameScene = (setCurrentScene, setVideoGameCompleted,setEnteredVideoGa
       let wrongAnswer = 3;
       let correctAnswer = "";
       let heart;
-      const allVideoGameQuestions = []; // Use a local variable
-      //
+      const allVideoGameQuestions = [];
+
       const heartX = 87;
       const enemyHeartY = 38;
       const playerHeartY = 97;
@@ -79,7 +81,7 @@ const VideoGameScene = (setCurrentScene, setVideoGameCompleted,setEnteredVideoGa
         .create(heartX + 174, enemyHeartY, "HP3")
         .setScale(0.31)
         .refreshBody();
-      //////////
+
       const playerHeart1 = heart
         .create(heartX + 20, playerHeartY, "PHP1")
         .setScale(0.31)
@@ -93,7 +95,6 @@ const VideoGameScene = (setCurrentScene, setVideoGameCompleted,setEnteredVideoGa
         .setScale(0.31)
         .refreshBody();
 
-      // Question text display
       const questionText = this.add.text(100, 150, "", {
         fontSize: "28px",
         fill: "#fff",
@@ -107,18 +108,15 @@ const VideoGameScene = (setCurrentScene, setVideoGameCompleted,setEnteredVideoGa
         strokeThickness: 1.2,
       });
 
-      // Create answer buttons and store them in an array
       const answerButtons = [];
-      const buttonPadding = 20; // Padding between buttons
-      const buttonYStart = 350; // Starting Y position for the first button
+      const buttonPadding = 20;
+      const buttonYStart = 350;
 
       for (let i = 0; i < 4; i++) {
-        const letter = String.fromCharCode(65 + i); // Convert index to letter (A, B, C, D)
+        const letter = String.fromCharCode(65 + i);
 
-        // Dynamically calculate vertical positions for buttons (one below the other)
-        const y = buttonYStart + i * (buttonPadding + 40); // Spacing between buttons
+        const y = buttonYStart + i * (buttonPadding + 40);
 
-        // Create the button with the letter label (A, B, C, D)
         const button = this.add
           .text(70, y, `${letter}. `, {
             fontSize: "24px",
@@ -131,45 +129,37 @@ const VideoGameScene = (setCurrentScene, setVideoGameCompleted,setEnteredVideoGa
           .setInteractive()
           .on("pointerdown", () => checkAnswer(i));
 
-        // Store letter for later use
         button.letter = letter;
         answerButtons.push(button);
       }
 
-      // Load the questions and start the game
       getAllVideoGameQuestions().then((questions) => {
-        allVideoGameQuestions.push(...questions); // Populate local questions array
-        displayQuestion(); // Display the first question
+        allVideoGameQuestions.push(...questions);
+        displayQuestion();
       });
 
-      // Function to shuffle answers and display the current question
       const displayQuestion = () => {
         if (currentQuestionIndex < allVideoGameQuestions.length) {
           const questionData = allVideoGameQuestions[currentQuestionIndex];
           questionText.setText(questionData.question);
 
-          // Shuffle answers
           const shuffledAnswers = shuffleAnswers(questionData);
           answerButtons.forEach((button, index) => {
-            // Append the letter (A, B, C, D) to the shuffled answer
             button.setText(`${button.letter}. ${shuffledAnswers[index]}`);
           });
 
-          // Track the correct answer
           correctAnswer = questionData.correctAnswer;
         } else {
-          endGame(); // End the game if no more questions
+          endGame();
         }
       };
 
-      // Function to shuffle answers
       const shuffleAnswers = (questionData) => {
         const allAnswers = [
           ...questionData.incorrectAnswers,
           questionData.correctAnswer,
         ];
 
-        // Shuffle answers using Fisher-Yates algorithm
         for (let i = allAnswers.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [allAnswers[i], allAnswers[j]] = [allAnswers[j], allAnswers[i]];
@@ -177,53 +167,48 @@ const VideoGameScene = (setCurrentScene, setVideoGameCompleted,setEnteredVideoGa
         return allAnswers;
       };
 
-      // Function to check if the selected answer is correct
       const checkAnswer = (selectedIndex) => {
         const selectedAnswer = answerButtons[selectedIndex].text.slice(3);
 
         if (selectedAnswer === correctAnswer) {
           this.music = this.sound.add("correct", {
-            loop: false, // Loops the music
-            volume: 0.5, // Set volume (0 to 1)
-
+            loop: false,
+            volume: 0.5,
           });
-  
+
           this.music.play();
           score--;
         } else {
           this.music = this.sound.add("wrong", {
-            loop: false, // Loops the music
-            volume: 0.5, // Set volume (0 to 1)
-
+            loop: false,
+            volume: 0.5,
           });
-  
+
           this.music.play();
           wrongAnswer--;
         }
 
         if (score === 0) {
           this.music = this.sound.add("win", {
-            loop: false, // Loops the music
-            volume: 0.5, // Set volume (0 to 1)
-
+            loop: false,
+            volume: 0.5,
           });
           this.music.play();
           answerButtons.forEach((button) => button.disableInteractive());
           setTimeout(() => {
             setCurrentScene("FirstScene");
             setVideoGameCompleted(true);
-          }, 2000); // 2000 ms = 2 seconds
+          }, 2000);
         }
 
         if (wrongAnswer === 0) {
           this.music = this.sound.add("fail", {
-            loop: false, // Loops the music
-            volume: 0.5, // Set volume (0 to 1)
-
+            loop: false,
+            volume: 0.5,
           });
           this.music.play();
           answerButtons.forEach((button) => button.disableInteractive());
-          setTimeout(() => setCurrentScene("FirstScene"), 1000); // 1 second delay
+          setTimeout(() => setCurrentScene("FirstScene"), 1000);
         }
 
         const enemyHearts = [
@@ -239,7 +224,6 @@ const VideoGameScene = (setCurrentScene, setVideoGameCompleted,setEnteredVideoGa
           enemyHeart10,
         ];
 
-        // Make the corresponding heart invisible based on the score
         if (score >= 0 && score <= 9) {
           enemyHearts[score].visible = false;
         }
@@ -253,10 +237,9 @@ const VideoGameScene = (setCurrentScene, setVideoGameCompleted,setEnteredVideoGa
         displayQuestion();
       };
 
-      // Function to end the game
       const endGame = () => {
-        setHistoryCompleted(true); // Mark history badge as completed
-        setCurrentScene("FirstScene"); // Return to the main scene
+        setHistoryCompleted(true);
+        setCurrentScene("FirstScene");
       };
     },
   };

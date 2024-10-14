@@ -24,8 +24,8 @@ a:hover {
 
 body {
   background-image: url("../public/Background.png");
-  background-size: cover; /* Make sure the image covers the entire area */
-  background-position: center; /* Center the background image */
+  background-size: cover; 
+  background-position: center; 
   background-repeat: no-repeat;
   margin: 0;
   display: flex;

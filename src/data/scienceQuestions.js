@@ -13,7 +13,4 @@ export const getAllScienceQuestions = () => {
   });;
 };
 
-// export const allScienceQuestions = await getScienceQuestions().then((data) => {
-//   return shuffleArray(data.flat(Infinity));
-// });
 

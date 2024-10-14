@@ -2,7 +2,7 @@ import { getBossData } from "../data/apiCalls";
 
 export const bossQuestionData = async (amount, difficulty) => {
   const results = await getBossData(amount, difficulty);
-  console.log(results, "<--- results");
+
   const questions = results.map((currentQuestion) => ({
     question: currentQuestion.question
       .replace(/&quot;/g, '"')

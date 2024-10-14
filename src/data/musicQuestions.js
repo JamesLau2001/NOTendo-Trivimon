@@ -14,9 +14,6 @@ export const getAllMusicQuestions = () => {
   })
 };
 
-// export const allMusicQuestions = await getAllMusicQuestions().then((data) => {
-//   return shuffleArray(data.flat(Infinity))
-// });
 
 
 

@@ -1,7 +1,5 @@
-// mongoDB.js
 import { MongoClient } from "mongodb";
 
-// Replace the uri string with your connection string.
 const uri =
   "mongodb+srv://jameslau21:Cv8qPu722MJjBJb3@first-test-cluster.iz6no.mongodb.net/?retryWrites=true&w=majority&appName=First-Test-Cluster";
 
@@ -17,9 +15,7 @@ export const findUser = (username, password) => {
       const filter = { username, password };
       return users.findOne(filter);
     })
-    .catch((error) => {
-      console.error("Error occurred while connecting to MongoDB", error);
-    })
+    .catch((error) => {})
     .finally(() => {
       client.close();
     });
@@ -47,12 +43,7 @@ export const createUser = (username, password) => {
 
       return users.insertOne(user);
     })
-    .catch((error) => {
-      console.error(
-        "Error occurred while connecting to MongoDB or inserting document:",
-        error
-      );
-    })
+    .catch((error) => {})
     .finally(() => {
       client.close();
     });
@@ -90,12 +81,7 @@ export const updateUser = (username, saveDataStates) => {
 
       return users.updateOne(filter, updateDoc);
     })
-    .catch((error) => {
-      console.error(
-        "Error occurred while connecting to MongoDB or updating document:",
-        error
-      );
-    })
+    .catch((error) => {})
     .finally(() => {
       client.close();
     });

@@ -8,7 +8,7 @@ export const findUser = (username, password) => {
     const response =apiCall.get(`/api/findUser`, {
       params: { username, password },
     });
-    return response; // This will return the Axios response
+    return response; 
   };
 
   

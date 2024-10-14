@@ -15,6 +15,3 @@ export const getAllSportsQuestions = () => {
     });
 };
 
-// export const allSportsQuestions = await getAllSportsQuestions().then((data) => {
-//   return shuffleArray(data.flat(Infinity));
-// });

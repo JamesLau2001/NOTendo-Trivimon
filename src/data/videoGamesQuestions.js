@@ -13,9 +13,5 @@ export const getAllVideoGameQuestions = () => {
   })
 };
 
-// export const allVideoGameQuestions = await getAllVideoGameQuestions().then(
-//   (data) => {
-//     return shuffleArray(data.flat(Infinity));
-//   }
-// );
+
 

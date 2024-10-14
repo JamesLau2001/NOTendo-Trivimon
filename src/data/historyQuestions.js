@@ -15,6 +15,4 @@ export const getAllHistoryQuestions = () => {
     });
 };
 
-// export const allHistoryQuestions = await getHistoryQuestions().then((data) => {
-//   return shuffleArray(data.flat(Infinity))
-// });
+

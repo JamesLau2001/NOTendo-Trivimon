@@ -19,13 +19,9 @@ const PhaserGame = ({
   characterSelected,
   setDisplayText,
 }) => {
-  console.log(saveData, "phaser");
-  console.log(characterSelected);
-
-  //////
   const gameRef = useRef(null);
-  const [currentScene, setCurrentScene] = useState("FirstScene"); // Track current scene
-  ////
+  const [currentScene, setCurrentScene] = useState("FirstScene");
+
   const [videoGameCompleted, setVideoGameCompleted] = useState(
     saveData.videoGamesCompleted
   );
@@ -44,7 +40,6 @@ const PhaserGame = ({
   );
   const [bossCompleted, setBossCompleted] = useState(false);
 
-  ////
   const [scienceQuestionsLoaded, setScienceQuestionsLoaded] = useState(false);
   const [musicQuestionsLoaded, setMusicQuestionsLoaded] = useState(false);
   const [videoGameQuestionsLoaded, setVideoGameQuestionsLoaded] =
@@ -54,7 +49,6 @@ const PhaserGame = ({
   const [animalQuestionsLoaded, setAnimalQuestionsLoaded] = useState(false);
   const [bossQuestionsLoaded, setBossQuestionsLoaded] = useState(false);
 
-  ////
   let [enteredScience, setEnteredScience] = useState(false);
   let [enteredVideoGame, setEnteredVideoGame] = useState(false);
   let [enteredHistory, setEnteredHistory] = useState(false);
@@ -64,7 +58,6 @@ const PhaserGame = ({
 
   let [enteredBoss, setEnteredBoss] = useState(false);
 
-  ///////
   let [showSport, setShowSport] = useState(true);
   let [showScience, setShowScience] = useState(true);
   let [showAnimal, setShowAnimal] = useState(true);
@@ -95,8 +88,6 @@ const PhaserGame = ({
 
     const FirstScene = {
       preload: function () {
-        //////
-
         this.load.image("background", "../../backgrounds/trivimon.png");
         this.load.image("collision", "../../collision.png");
 
@@ -171,7 +162,7 @@ const PhaserGame = ({
 
         this.load.image("tree", "../../tree.png");
         this.load.image("block", "../../collision.png");
-        //////
+
         this.load.image("music", "../../houses/music.png");
         this.load.image("science", "../../houses/science.png");
         this.load.image("videoGame", "../../houses/vgs.png");
@@ -179,7 +170,6 @@ const PhaserGame = ({
         this.load.image("history", "../../houses/history.png");
         this.load.image("animal", "../../houses/animal.png");
 
-        //////
         this.load.image("bar", "../../badges/BadgePlaceholder.png");
         this.load.image("musicBadge", "../../badges/Music.png");
         this.load.image("scienceBadge", "../../badges/Science.png");
@@ -188,7 +178,7 @@ const PhaserGame = ({
         this.load.image("sportBadge", "../../badges/Sports.png");
         this.load.image("historyBadge", "../../badges/History.png");
         this.load.image("saveDisc", "../../badges/saveDisc.png");
-        //////
+
         this.load.audio("lake", "../../music/lake.mp3");
         this.load.audio("calm", "../../music/gameMusic.mp3");
         this.load.audio("save", "../../music/save.mp3");
@@ -196,21 +186,16 @@ const PhaserGame = ({
       },
 
       create: function () {
-        // Set the line style (thickness, color)
-
-        //// cursor
         cursors = this.input.keyboard.createCursorKeys();
-        // setDisplayText("")
 
-        // Your existing create logic for FirstScene
         background = this.add
           .image(0, 0, "background")
           .setScale(2.7)
           .setOrigin(0, 0);
 
         this.music = this.sound.add("calm", {
-          loop: true, // Loops the music
-          volume: 0.1, // Set volume (0 to 1)
+          loop: true,
+          volume: 0.1,
         });
 
         this.music.play();
@@ -273,17 +258,14 @@ const PhaserGame = ({
           fill: "#ffffff",
         });
 
-        // Set camera bounds to match the background size
         this.cameras.main.setBounds(
           0,
           0,
           background.width * 2.7,
           background.height * 2.7
         );
-        // Make the camera follow the player
-        this.cameras.main.startFollow(this.player);
 
-        // Create static images using the reusable function
+        this.cameras.main.startFollow(this.player);
 
         music = addStaticImage(this, 905, 1890, "music", 0.1);
         science = addStaticImage(this, 1630, 875, "science", 0.1);
@@ -292,9 +274,6 @@ const PhaserGame = ({
         history = addStaticImage(this, 730, 1080, "history", 0.3);
         animal = addStaticImage(this, 2200, 1490, "animal", 0.07);
 
-        // Keep hitbox logic unchanged
-
-        ///////////////
         setBodySizeAndOffset(music, 0.1, 0.1);
         setBodySizeAndOffset(science, 0.1, 0.1);
         setBodySizeAndOffset(videoGame, 0.1, 0.1);
@@ -308,30 +287,20 @@ const PhaserGame = ({
         videoGame.setVisible(false);
         science.setVisible(false);
 
-
-        //////
         if (!videoGameCompleted) {
           this.physics.add.overlap(this.player, videoGame, () => {
             setDisplayText(
               "Why was the computer cold? Because it left its Windows open!"
             );
-            console.log(
-              "Player hit videoGame! Teleporting to videoGameScene..."
-            );
+
             if (!videoGameQuestionsLoaded) {
-              console.log("Loading music questions...");
-              setVideoGameQuestionsLoaded(true); // Set loaded to true
-              setCurrentScene("VideoGameScene"); // Change to MusicScene
-              //});
+              setVideoGameQuestionsLoaded(true);
+              setCurrentScene("VideoGameScene");
             } else {
-              console.log(
-                "VideoGame questions already loaded, changing to MusicScene..."
-              );
-              setCurrentScene("VideoGameScene"); // Change to videogame if already loaded
+              setCurrentScene("VideoGameScene");
             }
           });
         } else {
-          // Keep the logic to handle static videoGame if disabled
           const staticVideoGame = this.physics.add
             .staticImage(2780, 1210, "videoGame")
             .setScale(0.1);
@@ -343,33 +312,24 @@ const PhaserGame = ({
             (staticVideoGame.width - staticVideoGame.width * 0.1) / 2,
             (staticVideoGame.height - staticVideoGame.height * 0.1) / 2
           );
-          this.physics.add.collider(this.player, staticVideoGame, () => {
-            console.log("Player collided with the static videoGame");
-          });
-          staticVideoGame.setVisible(false)
+          this.physics.add.collider(this.player, staticVideoGame, () => {});
+          staticVideoGame.setVisible(false);
         }
-        //////////////////////////////////////////////////
 
         if (!scienceCompleted) {
           this.physics.add.overlap(this.player, science, () => {
             setDisplayText(
               "Why can't you trust an atom? Because they make up everything!"
             );
-            console.log("Player hit science! Teleporting to scienceScene...");
+
             if (!scienceQuestionsLoaded) {
-              console.log("Loading music questions...");
-              setScienceQuestionsLoaded(true); // Set flag to true
-              setCurrentScene("ScienceScene"); // Change to MusicScene
-              //});
+              setScienceQuestionsLoaded(true);
+              setCurrentScene("ScienceScene");
             } else {
-              console.log(
-                "Science questions already loaded, changing to MusicScene..."
-              );
-              setCurrentScene("ScienceScene"); // Change to MusicScene if already loaded
+              setCurrentScene("ScienceScene");
             }
           });
         } else {
-          // Keep the logic to handle static science if disabled
           const staticScience = this.physics.add
             .staticImage(1630, 875, "science")
             .setScale(0.1);
@@ -381,34 +341,24 @@ const PhaserGame = ({
             (staticScience.width - staticScience.width * 0.1) / 2,
             (staticScience.height - staticScience.height * 0.1) / 2
           );
-          this.physics.add.collider(this.player, staticScience, () => {
-            console.log("Player collided with the static science");
-          });
-          staticScience.setVisible(false)
+          this.physics.add.collider(this.player, staticScience, () => {});
+          staticScience.setVisible(false);
         }
-
-        //////////////////////////
 
         if (!musicCompleted) {
           this.physics.add.overlap(this.player, music, () => {
             setDisplayText(
               "Why did the piano break up with the accordion? Because they just weren’t in tune anymore!"
             );
-            console.log("Player hit music! Teleporting to musicScene...");
+
             if (!musicQuestionsLoaded) {
-              console.log("Loading music questions...");
-              setMusicQuestionsLoaded(true); // Set flag to true
-              setCurrentScene("MusicScene"); // Change to MusicScene
-              //});
+              setMusicQuestionsLoaded(true);
+              setCurrentScene("MusicScene");
             } else {
-              console.log(
-                "Music questions already loaded, changing to MusicScene..."
-              );
-              setCurrentScene("MusicScene"); // Change to MusicScene if already loaded
+              setCurrentScene("MusicScene");
             }
           });
         } else {
-          // Keep the logic to handle static videoGame if disabled
           const staticMusic = this.physics.add
             .staticImage(905, 1890, "music")
             .setScale(0.1);
@@ -420,32 +370,24 @@ const PhaserGame = ({
             (staticMusic.width - staticMusic.width * 0.1) / 2,
             (staticMusic.height - staticMusic.height * 0.1) / 2
           );
-          this.physics.add.collider(this.player, staticMusic, () => {
-            console.log("Player collided with the static music");
-          });
-          staticMusic.setVisible(false)
+          this.physics.add.collider(this.player, staticMusic, () => {});
+          staticMusic.setVisible(false);
         }
-        //////////////////////////////////////////////////
+
         if (!sportCompleted) {
           this.physics.add.overlap(this.player, sport, () => {
             setDisplayText(
               "Why did the golfer bring two pairs of pants? In case he got a hole in one!"
             );
-            console.log("Player hit sport! Teleporting to sportScene...");
+
             if (!sportQuestionsLoaded) {
-              console.log("Loading sport questions...");
-              setSportQuestionsLoaded(true); // Set flag to true
-              setCurrentScene("SportScene"); // Change to MusicScene
-              //});
+              setSportQuestionsLoaded(true);
+              setCurrentScene("SportScene");
             } else {
-              console.log(
-                "sport questions already loaded, changing to SportScene..."
-              );
-              setCurrentScene("SportScene"); // Change to MusicScene if already loaded
+              setCurrentScene("SportScene");
             }
           });
         } else {
-          // Keep the logic to handle static videoGame if disabled
           const staticSport = this.physics.add
             .staticImage(2240, 720, "sport")
             .setScale(0.1);
@@ -457,13 +399,9 @@ const PhaserGame = ({
             (staticSport.width - staticSport.width * 0.1) / 2,
             (staticSport.height - staticSport.height * 0.1) / 2
           );
-          this.physics.add.collider(this.player, staticSport, () => {
-            console.log("Player collided with the static sport");
-          });
-          staticSport.setVisible(false)
+          this.physics.add.collider(this.player, staticSport, () => {});
+          staticSport.setVisible(false);
         }
-
-        ///////////////////////
 
         if (!historyCompleted) {
           setEnteredHistory(false);
@@ -471,21 +409,15 @@ const PhaserGame = ({
             setDisplayText(
               "Why was the medieval knight always tired? Because he worked on knight shifts!"
             );
-            console.log("Player hit history! Teleporting to HistoryScene...");
+
             if (!historyQuestionsLoaded) {
-              console.log("Loading history questions...");
-              setHistoryQuestionsLoaded(true); // Set flag to true
-              setCurrentScene("HistoryScene"); // Change to MusicScene
-              //});
+              setHistoryQuestionsLoaded(true);
+              setCurrentScene("HistoryScene");
             } else {
-              console.log(
-                "History questions already loaded, changing to HistoryScene..."
-              );
-              setCurrentScene("HistoryScene"); // Change to MusicScene if already loaded
+              setCurrentScene("HistoryScene");
             }
           });
         } else {
-          // Keep the logic to handle static videoGame if disabled
           const staticHistory = this.physics.add
             .staticImage(730, 1080, "history")
             .setScale(0.2);
@@ -497,33 +429,24 @@ const PhaserGame = ({
             (staticHistory.width - staticHistory.width * 0.2) / 2,
             (staticHistory.height - staticHistory.height * 0.2) / 2
           );
-          this.physics.add.collider(this.player, staticHistory, () => {
-            console.log("Player collided with the static history");
-          });
-          staticHistory.setVisible(false)
+          this.physics.add.collider(this.player, staticHistory, () => {});
+          staticHistory.setVisible(false);
         }
-        //////////////////////////////////////////////////
 
         if (!animalCompleted) {
           this.physics.add.overlap(this.player, animal, () => {
             setDisplayText(
               "Why don’t elephants use computers? Because they’re afraid of the mouse!"
             );
-            console.log("Player hit animal! Teleporting to animalScene...");
+
             if (!animalQuestionsLoaded) {
-              console.log("Loading music questions...");
-              setAnimalQuestionsLoaded(true); // Set flag to true
-              setCurrentScene("AnimalScene"); // Change to MusicScene
-              //});
+              setAnimalQuestionsLoaded(true);
+              setCurrentScene("AnimalScene");
             } else {
-              console.log(
-                "Animal questions already loaded, changing to MusicScene..."
-              );
-              setCurrentScene("AnimalScene"); // Change to MusicScene if already loaded
+              setCurrentScene("AnimalScene");
             }
           });
         } else {
-          // Keep the logic to handle static animal if disabled
           const staticAnimal = this.physics.add
             .staticImage(2200, 1490, "animal")
             .setScale(0.07);
@@ -536,13 +459,9 @@ const PhaserGame = ({
             (staticAnimal.width - staticAnimal.width * 0.07) / 2,
             (staticAnimal.height - staticAnimal.height * 0.07) / 2
           );
-          this.physics.add.collider(this.player, staticAnimal, () => {
-            console.log("Player collided with the static animal");
-          });
-          staticAnimal.setVisible(false)
+          this.physics.add.collider(this.player, staticAnimal, () => {});
+          staticAnimal.setVisible(false);
         }
-
-        /////////////////////////////////////////////////
 
         obstacles = this.physics.add.staticGroup();
         obstacles.create(280, 68, "tree").setScale(0.5).refreshBody();
@@ -565,17 +484,13 @@ const PhaserGame = ({
           }
         }
 
-        this.physics.add.collider(this.player, collide, () => {
-          console.log("Player hit an wall!");
-        });
+        this.physics.add.collider(this.player, collide, () => {});
 
-        // Set position bar
         this.bar = this.add
           .image(700, 585, "bar")
           .setScrollFactor(0)
           .setScale(1);
 
-        // Create a group for badges, add them without physics, and set fixed position
         this.badges = this.add.group();
         let badgeX = 700;
         const badgeY = 600;
@@ -589,7 +504,7 @@ const PhaserGame = ({
           const scienceBadge = this.add
             .image(badgeX - 133, badgeY, "scienceBadge")
             .setScale(1)
-            .setScrollFactor(0); // Lock to the screen
+            .setScrollFactor(0);
           this.badges.add(scienceBadge);
         }
         if (sportCompleted) {
@@ -653,9 +568,7 @@ const PhaserGame = ({
           this.badges.add(historyBadge);
         }
 
-        this.physics.add.collider(this.player, obstacles, () => {
-          console.log("Player hit an obstacle!");
-        });
+        this.physics.add.collider(this.player, obstacles, () => {});
 
         this.coordText = this.add.text(10, 10, "Coordinates: (0, 0)", {
           fontSize: "16px",
@@ -681,8 +594,8 @@ const PhaserGame = ({
           })
             .then(() => {
               this.music = this.sound.add("save", {
-                loop: false, // Loops the music
-                volume: 0.5, // Set volume (0 to 1)
+                loop: false,
+                volume: 0.5,
               });
 
               this.music.play();
@@ -690,8 +603,8 @@ const PhaserGame = ({
             })
             .catch(() => {
               this.music = this.sound.add("error", {
-                loop: false, // Loops the music
-                volume: 0.5, // Set volume (0 to 1)
+                loop: false,
+                volume: 0.5,
               });
               this.music.play();
               setDisplayText("Save Failed");
@@ -708,7 +621,9 @@ const PhaserGame = ({
         ) {
           setFinishedBadges(true);
           this.time.delayedCall(2000, () => {
-            setDisplayText("All badges earned, you may now challenge the boss !!!");
+            setDisplayText(
+              "All badges earned, you may now challenge the boss !!!"
+            );
             boss = addStaticImage(this, 2914, 638, "tree", 0.1);
             boss.setVisible(false);
             setBodySizeAndOffset(boss, 0.1, 0.1);
@@ -716,23 +631,15 @@ const PhaserGame = ({
             if (!bossCompleted) {
               this.physics.add.overlap(this.player, boss, () => {
                 setDisplayText("Boss Time...");
-                console.log(
-                  "Player hit videoGame! Teleporting to videoGameScene..."
-                );
+
                 if (!bossQuestionsLoaded) {
-                  console.log("Loading music questions...");
-                  setBossQuestionsLoaded(true); // Set loaded to true
-                  setCurrentScene("BossScene"); // Change to MusicScene
-                  //});
+                  setBossQuestionsLoaded(true);
+                  setCurrentScene("BossScene");
                 } else {
-                  console.log(
-                    "VideoGame questions already loaded, changing to MusicScene..."
-                  );
-                  setCurrentScene("BossScene"); // Change to videogame if already loaded
+                  setCurrentScene("BossScene");
                 }
               });
             } else {
-              // Keep the logic to handle static videoGame if disabled
               setCurrentScene("CreditScene");
               setDisplayText("You beat the boss, Well Done");
               const staticBoss = this.physics.add
@@ -746,10 +653,8 @@ const PhaserGame = ({
                 (staticBoss.width - staticBoss.width * 0.1) / 2,
                 (staticBoss.height - staticBoss.height * 0.1) / 2
               );
-              this.physics.add.collider(this.player, staticBoss, () => {
-                console.log("Player collided with the static videoGame");
-              });
-              staticBoss.setVisible(false)
+              this.physics.add.collider(this.player, staticBoss, () => {});
+              staticBoss.setVisible(false);
             }
           });
         } else {
@@ -758,15 +663,14 @@ const PhaserGame = ({
           });
         }
 
-        // Create animations for each direction
         this.anims.create({
           key: "walkDown",
           frames: this.anims.generateFrameNumbers("playerDown", {
             start: 0,
             end: 2,
           }),
-          frameRate: 10, // Adjust frame rate for smooth animation
-          repeat: -1, // Loop animation
+          frameRate: 10,
+          repeat: -1,
         });
 
         this.anims.create({
@@ -799,7 +703,6 @@ const PhaserGame = ({
           repeat: -1,
         });
 
-        // Diagonal directions
         this.anims.create({
           key: "walkUpLeft",
           frames: this.anims.generateFrameNumbers("playerUpLeft", {
@@ -845,7 +748,6 @@ const PhaserGame = ({
         if (!this.player) return;
         this.player.setVelocity(0);
 
-        // Diagonal movement first
         if (cursors.up.isDown && cursors.left.isDown) {
           this.player.setVelocityX(-250);
           this.player.setVelocityY(-250);
@@ -863,7 +765,6 @@ const PhaserGame = ({
           this.player.setVelocityY(250);
           this.player.anims.play("walkDownRight", true);
         } else {
-          // Handle single direction movement
           if (cursors.left.isDown) {
             this.player.setVelocityX(-250);
             this.player.anims.play("walkLeft", true);
@@ -881,26 +782,14 @@ const PhaserGame = ({
           }
         }
 
-        // Stop animation when no movement
         if (
           cursors.left.isUp &&
           cursors.right.isUp &&
           cursors.up.isUp &&
           cursors.down.isUp
         ) {
-          this.player.anims.stop(); // Stop animation if no keys pressed
+          this.player.anims.stop();
         }
-        // Update the coordinates display to stick with the player
-        // this.coordText.setText(
-        //   "Coordinates: (" +
-        //     this.player.x.toFixed(0) +
-        //     ", " +
-        //     this.player.y.toFixed(0) +
-        //     ")"
-        // );
-
-        // // Make the text follow the player by setting its position relative to the player
-        // this.coordText.setPosition(this.player.x - 50, this.player.y - 50);
       },
     };
 

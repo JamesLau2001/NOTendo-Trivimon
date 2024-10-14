@@ -1,4 +1,4 @@
-// CreditScene.jsx
+
 const CreditScene = (setCurrentScene) => {
     return {
         preload: function () {
@@ -18,10 +18,10 @@ const CreditScene = (setCurrentScene) => {
                 "Copyright © Northcoders",
             ];
 
-            // Create a container 
+          
             let yPosition = 50; 
             const creditGroup = this.add.group();
-            //t objects for each credit
+          
             credits.forEach((credit, index) => {
                 let creditText;
                 if (typeof credit === 'string') {
@@ -41,7 +41,7 @@ const CreditScene = (setCurrentScene) => {
 
                 creditGroup.add(textObject); 
                 
-                // Adjust yPosition 
+                
                 if (index === 0) {
                    
                     yPosition += 50; 
@@ -53,10 +53,10 @@ const CreditScene = (setCurrentScene) => {
                 }
             });
 
-            // Animate the entire group of text upwards
+           
             this.tweens.add({
-                targets: creditGroup.getChildren(), // Animate all text objects 
-                y: -yPosition, // Move upwards based 
+                targets: creditGroup.getChildren(), 
+                y: -yPosition, 
                 duration: 20500, 
                 ease: "Linear",
                 onComplete: () => {

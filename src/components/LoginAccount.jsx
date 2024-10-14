@@ -1,4 +1,4 @@
-// LoginAccount Component
+
 import React, { useState } from "react";
 import { findUser } from "../data/mongoApi";
 import CreateAccount from "./CreateAccount";
@@ -50,7 +50,7 @@ const LoginAccount = ({
 
   return (
     <div className="login-page">
-      {/* <h1>Welcome to Trivimon!</h1> */}
+     
       <img src = "../../public/logo.png"/>
       <form className="login-form" onSubmit={handleSubmit}>
         <input
@@ -72,19 +72,7 @@ const LoginAccount = ({
         <button type="submit" disabled={loading}>
           Login
         </button>
-        {/* <p >
-          Available Users:
-          <select
-            id="users-bar"
-            name="user"
-            onClick={() => {
-              setUsername("fred");
-              setPassword("asd");
-            }}
-          >
-            <option>{"fred"}</option>
-          </select>
-        </p> */}
+       
       </form>
       {error && <p className="error-message">{error}</p>}
       {loading && <p className="loading-text">Loading...</p>}

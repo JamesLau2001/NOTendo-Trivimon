@@ -8,18 +8,15 @@ const AccountProfile = () => {
   const { name } = useParams();
   const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   setLoggedInUser(name);
-  console.log(loggedInUser, "hows it hangin");
-  console.log(name, "<-- user");
+
   useEffect(() => {
     getUserByName(name)
       .then((data) => {
         setUserData(data.user);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, []);
-  console.log(userData);
+
   return (
     <>
       <div>

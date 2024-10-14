@@ -13,7 +13,5 @@ export const getAllAnimalQuestions = () => {
   });
 };
 
-// export const allAnimalQuestions = await getAllAnimalQuestions().then((data) => {
-//   return shuffleArray(data.flat(Infinity));
-// });
+
 

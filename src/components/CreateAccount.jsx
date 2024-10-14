@@ -1,4 +1,3 @@
-// CreateAccount Component
 import React, { useState } from "react";
 import { postUser, getAllUsers } from "../data/mongoApi";
 import CharacterSelection from "./CharacterSelection";
@@ -14,7 +13,6 @@ const CreateAccount = ({ setShowCreateAccount }) => {
     e.preventDefault();
     setError("");
     setSuccessMessage("");
-    console.log(username, password, selectedImage);
 
     try {
       const allUsers = await getAllUsers();
@@ -22,7 +20,6 @@ const CreateAccount = ({ setShowCreateAccount }) => {
 
       if (!userExists) {
         if (selectedImage !== "") {
-          console.log("posted");
           await postUser(username, password, selectedImage);
           setSuccessMessage("Account created successfully!");
           setUsername("");
@@ -62,15 +59,20 @@ const CreateAccount = ({ setShowCreateAccount }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          
+
           <p className="select-character-text">Select a Character</p>
           <CharacterSelection setSelectedImage={setSelectedImage} />
-          <button className = "create-account-button"type="submit">Create Account</button>
+          <button className="create-account-button" type="submit">
+            Create Account
+          </button>
         </form>
         {error && <p className="error-message">{error}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
-        
-        <button className="back-to-login-button" onClick={() => setShowCreateAccount(false)}>
+
+        <button
+          className="back-to-login-button"
+          onClick={() => setShowCreateAccount(false)}
+        >
           Back to Login
         </button>
       </div>

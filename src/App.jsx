@@ -8,13 +8,13 @@ import CharacterSelection from "./components/CharacterSelection";
 import DisplayBox from "./components/DisplayBox";
 
 function App() {
-  const [isGameStarted, setIsGameStarted] = useState(false); // State to track if the game has started
+  const [isGameStarted, setIsGameStarted] = useState(false); 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [saveData, setSaveData] = useState({});
   const [characterSelected, setCharacterSelected] = useState("A");
   const handleLoginSuccess = () => {
-    setIsGameStarted(true); // Change the state to start the game
+    setIsGameStarted(true); 
   };
   const [displayText, setDisplayText] = useState("Welcome to the game!");
 

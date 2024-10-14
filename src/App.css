@@ -65,8 +65,8 @@ button:focus-visible {
 /* Account Creation Page */
 
 #phaser-container canvas {
-  z-index: 1; /* Lower than the display box */
-  position: relative; /* Ensure the canvas respects the layout */
+  z-index: 1; 
+  position: relative; 
 }
 
 
@@ -82,21 +82,14 @@ button:focus-visible {
   transition: outline 0.3s;
 }
 .CharImage:hover {
-  outline: 3px solid #646cff; /* Outline the image with a blue border */
-  outline-offset: 2px; /* Optional: Creates space between the image and the outline */
+  outline: 3px solid #646cff; 
+  outline-offset: 2px; 
 }
 
 .selected .CharImage {
-  outline: 2px solid #646cff; /* Change this to your desired selected color */
+  outline: 2px solid #646cff; 
 }
 
-/* .CharImage:hover {
-  border-color: #646cff;
-}
-.CharImage:focus,
-.CharImage:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
 
 .create-account-page {
   display: flex;
@@ -130,18 +123,7 @@ button:focus-visible {
   width: 13rem;
   padding: 0.3em 1.2em;
 }
-/* .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-} */
+
 
 @keyframes logo-spin {
   from {
