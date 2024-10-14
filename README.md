@@ -1,11 +1,11 @@
 This project revolves around building a full-stack app, using data from a self-built API to access and manipulate user information, and can be accessed at: https://mongodatabase-pnz0.onrender.com/. On top of this, to retrieve the 'trivia questions' that were implemented into this app, data was retrieved from 'Open Trivia Database' and can be accessed at: https://opentdb.com/api_config.php.
-Note: To access the self-built back-end repository, please visit: ________________.
+
 
 The app is a 2D RPG game with trivia elements. The user is able to create and log into their accounts, and will be able to move around in a map, whereby they can enter different areas in which they will be prompt with trivia questions for a certain topic. Additional features include a health system, whereby the user will 'lose' and will have to 'retry' the set of trivia questions if their health falls to 0, and will win if the 'enemy' health falls to 0. 
 
 To fork and clone this repository, fork a copy of the original repository and copy the unique link to your dashboard, and run $git clone <link>.
 
-To run this locally, ensure to install all the required packages and dependencies by running $npm i and then running $npm run dev to launch the app, or to access a hosted version of the app, please follow: ______________. Note: Node v22.5.1 will be required to run this repository.
+To run this locally, ensure to install all the required packages and dependencies by running $npm i and then running $npm run dev to launch the app, or to access a hosted version of the app, please follow: https://trivimon.netlify.app (Note that there are currently some issues with hosting, and running locally with $npm run dev is required to play the game). Note: Node v22.5.1 will be required to run this repository.
 
 Once the app is launched, the user will be directed to the login page, where the user will be able to log into their account or create one by clicking the 'Create an Account' button. Should the user need to create an account, they will be directed to the account creation page, where they will enter a username, password, and will also have to select an avatar, which defaults to the left option if not selected. After doing this, the user will be able to press the 'Create Account' button, and will be redirected to the login page. In the login page, the user will need to enter their username and password, whereby they can then click 'Login' and will be redirected to the main game.
 
